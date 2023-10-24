@@ -1,0 +1,38 @@
+form {
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff4e;
+}
+
+form h2 {
+  text-align: center;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+fieldset div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+input, textarea {
+  border: none;
+  outline: none;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.form__fieldset-textarea {
+  grid-template-columns: 1fr;
+}

@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react'
 import { Container } from '../components/Container/Container'
 import { ProductsList } from '../components/ProductsList/ProductsList'
 import { ProductsContext } from '../../context/products'
+import { ProductForm } from '../components/ProductForm/ProductForm'
 
 export const Admin = () => {
   const { products, setProducts } = useContext(ProductsContext)
@@ -17,6 +18,7 @@ export const Admin = () => {
 
   return (
     <Container>
+      <ProductForm />
       <ProductsList products={products} />
     </Container>
   )
