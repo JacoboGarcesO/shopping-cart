@@ -1,21 +1,17 @@
 import { useContext } from 'react'
 import './Product.css'
 import { ProductsContext } from '../../../context/products'
+import { deleteProduct } from '../../../services/products'
 
 export const Product = ({ product }) => {
-  const { products, setProducts } = useContext(ProductsContext)
+  const { state, setState } = useContext(ProductsContext)
 
   const handleDelete = () => {
-    fetch('https://products-api-dev-mneb.1.ie-1.fl0.io/api/product/' + product._id, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(response => {
-        window.alert('Se eliminó la tarea ' + response.product.name)
-        setProducts(products.filter(product => product._id !== response.product._id))
+    deleteProduct(product._id)
+      .then(product => {
+        window.alert('Se eliminó el producto ' + product.name)
+        const filteredProducts = state.products.filter(_product => _product._id !== product._id)
+        setState({ ...state, products: filteredProducts })
       })
   }
 
@@ -25,7 +21,7 @@ export const Product = ({ product }) => {
       <td>{product.price}</td>
       <td>{product.stock}</td>
       <td>
-        <button>Editar</button>
+        <button onClick={() => setState({ ...state, currentProduct: product })}>Editar</button>
         <button onClick={handleDelete}>Eliminar</button>
       </td>
     </tr>

@@ -5,10 +5,13 @@ export const ProductsContext = createContext()
 
 // 2. Proveer
 export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState()
+  const [state, setState] = useState({
+    products: [],
+    currentProduct: null
+  })
 
   return (
-    <ProductsContext.Provider value={{ products, setProducts }}>
+    <ProductsContext.Provider value={{ state, setState }}>
       {children}
     </ProductsContext.Provider>
   )
