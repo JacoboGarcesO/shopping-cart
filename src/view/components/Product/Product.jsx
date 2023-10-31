@@ -4,14 +4,13 @@ import { ProductsContext } from '../../../context/products'
 import { deleteProduct } from '../../../services/products'
 
 export const Product = ({ product }) => {
-  const { state, setState } = useContext(ProductsContext)
+  const { dispatch } = useContext(ProductsContext)
 
   const handleDelete = () => {
     deleteProduct(product._id)
       .then(product => {
         window.alert('Se eliminó el producto ' + product.name)
-        const filteredProducts = state.products.filter(_product => _product._id !== product._id)
-        setState({ ...state, products: filteredProducts })
+        dispatch({ type: 'DELETE_PRODUCT', payload: product._id })
       })
   }
 
@@ -21,7 +20,7 @@ export const Product = ({ product }) => {
       <td>{product.price}</td>
       <td>{product.stock}</td>
       <td>
-        <button onClick={() => setState({ ...state, currentProduct: product })}>Editar</button>
+        <button onClick={() => dispatch({ type: 'SET_CURRENT_PRODUCT', payload: product })}>Editar</button>
         <button onClick={handleDelete}>Eliminar</button>
       </td>
     </tr>

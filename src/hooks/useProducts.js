@@ -3,9 +3,9 @@ import { ProductsContext } from '../context/products'
 import { getProducts } from '../services/products'
 
 export const useProducts = () => {
-  const { state, setState } = useContext(ProductsContext)
+  const { dispatch } = useContext(ProductsContext)
 
   useEffect(() => {
-    getProducts().then(products => setState({ ...state, products }))
+    getProducts().then(products => dispatch({ type: 'GET_PRODUCTS', payload: products }))
   }, [])
 }

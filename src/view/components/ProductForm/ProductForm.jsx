@@ -4,7 +4,7 @@ import { ProductsContext } from '../../../context/products'
 import { createProduct, updateProduct } from '../../../services/products'
 
 export const ProductForm = () => {
-  const { state, setState } = useContext(ProductsContext)
+  const { state, dispatch } = useContext(ProductsContext)
 
   const text = state.currentProduct ? 'Actualizar' : 'Crear'
 
@@ -23,8 +23,8 @@ export const ProductForm = () => {
   const create = (body, event) => {
     createProduct(body)
       .then(product => {
-        window.alert('Se creó correctamente el producto' + product.name)
-        setState({ ...state, products: [product, ...state.products] })
+        window.alert('Se creó correctamente el producto ' + product.name)
+        dispatch({ type: 'CREATE_PRODUCT', payload: product })
         event.target.reset()
       })
   }
@@ -32,10 +32,8 @@ export const ProductForm = () => {
   const update = (body, event) => {
     updateProduct({ ...body, _id: state.currentProduct._id })
       .then(product => {
-        window.alert('Se actualizó correctamente el producto' + product.name)
-        const index = state.products.findIndex(_product => _product._id === product._id)
-        state.products[index] = product
-        setState({ ...state, currentProduct: null })
+        window.alert('Se actualizó correctamente el producto ' + product.name)
+        dispatch({ type: 'UPDATE_PRODUCT', payload: product })
         event.target.reset()
       })
   }
